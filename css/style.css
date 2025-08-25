@@ -1,0 +1,131 @@
+/*Paleta de colores*/
+:root {
+    --burnt-sienna: #A0522D;
+    --sage-green: #87A96B;
+    --warm-alabaster: #F5E6D3;
+    --goldenrod: #D4A437;
+    --dusty-rose: #C47A6D;
+    --dark-wood: #3E2723;
+    --light-grey: #F5F5F5;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+/*Texto del cuerpo*/
+body {
+    font-family: 'Inter', sans-serif; 
+    font-weight: 400;
+    background-color: var(--light-grey);
+    color: var(--dark-wood);
+    font-size: 12pt; 
+    line-height: 1.6;
+}
+/*Títulos principales*/
+h1, h2 {
+    font-family: 'Playfair Display', Georgia; 
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700; 
+}
+h1 {
+    font-size: 2.5rem;
+    color: var(--burnt-sienna);
+}
+.small-text, .leyenda {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+}
+.subtitulo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500; 
+}
+/* Estilos de encabezado */
+header {
+    background-color: var(--dark-wood);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    min-width: 120px; 
+}
+.navbar img {
+    height: 120px;
+    width: auto;
+    margin: 24px; 
+}
+nav ul {
+    list-style: disc;
+    display: flex;
+    justify-content: center;
+    padding: 1rem 0;
+    gap: 4rem;
+}
+nav li a {
+    color: var(--warm-alabaster);
+    text-decoration: none;
+    font-weight: 500; 
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: color 0.3s ease;
+     font-size: 1.25rem;
+}
+
+.carrito {
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+}
+#cart-count {
+    background-color: var(--burnt-sienna);
+    color: rgb(255, 255, 255);
+    font-size: 0.99rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 60%;
+}
+main {
+    padding: 1.5rem;
+}
+
+/* Pie de página */
+footer {
+    background: linear-gradient(to bottom, var(--dark-wood), #a1887f);
+    text-align: center;
+    padding: 2rem 1.5rem;
+    margin-top: 2rem;
+    border-left: 4px solid var(--burnt-sienna);
+    border-radius: 0 16px 16px 0;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+footer h3 {
+    color: var(--goldenrod);
+    margin-bottom: 0.5rem;
+    
+}
+footer p {
+    margin: 0.5rem 0;
+    color: var(--warm-alabaster);
+}
+footer ul {
+    list-style: none;
+    margin-top: 1rem;
+    
+}
+footer li {
+    margin: 0.25rem 0;
+    color: var(--warm-alabaster);
+}
+footer a {
+    color: var(--warm-alabaster);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
