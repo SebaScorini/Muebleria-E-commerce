@@ -10,7 +10,7 @@
     <body>
         <header>
             <!--ENCABEZADO-->
-            <div class="navbar">
+            <div class="navbar" >
                 <img src="img/logo.svg" alt="Logo de la Mueblería Hermanos Jota" width="100">
     
             </div>
@@ -19,7 +19,6 @@
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="productos.html">Catálogo</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="carrito.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
                 </ul>
             </nav>
             <div class="carrito">
@@ -33,15 +32,49 @@
                 <div>
                     <h1>Muebles con historia y diseño</h1>
                     <p>Más de 30 años creando piezas únicas que combinan artesanía y modernidad.</p>
+                    <p><a href="productos.html">Ver catálogo</a></p>
                 </div>
+
                 <div class="hero-image">
-                    <img src="img/hero-image.jpg" alt="Imagen de muebles destacados">
+                    <img src="img/hero-image.jpg" alt="Ambiente con muebles de diseño">
+                </div>
             </section>
-            <!-- SECCIÓN DE PRODUCTOS DESTACADOS -->
+            <!-- SECCIÓN DE PRODUCTOS DESTACADOS MOMENTANEOS -->
             <section id="productos-destacados">
-                <h2>Productos Destacados</h2>
+                <h2 id="productos-destacados-title">Productos Destacados</h2>
                 <div id="producto">
                     <!-- Mostrar los productos destacados -->
+                     <article class="producto" role="listitem" data-id="p1">
+                        <a href="producto.html?id=p1">
+                            <img src="img/Mesa-Comedor-Pampa.png" alt="Mesa Comedor Pampa" />
+                            <h3>Mesa Comedor Pampa</h3>
+                            <p class="precio">$xxx</p>
+                        </a>
+                        <button type="button" data-add-cart="p1">Añadir al Carrito</button>
+                    </article>
+                    <article class="producto" role="listitem" data-id="p2">
+                        <a href="producto.html?id=p2">
+                            <img src="img/Mesa-de-Centro-Araucaria.png" alt="Mesa de Centro Araucaria" />
+                            <h3>Mesa de Centro Araucaria</h3>
+                            <p class="precio">$xxx</p>
+                        </a>
+                        <button type="button" data-add-cart="p2">Añadir al Carrito</button>
+                    </article>
+                    <article class="producto" role="listitem" data-id="p3">
+                        <a href="producto.html?id=p3">
+                            <img src="img/Sofá-Patagonia.png" alt="Sofá Patagonia" />
+                            <h3>Sofá Patagonia</h3>
+                            <p class="precio">$xxx</p>
+                        </a>
+                        <button type="button" data-add-cart="p3">Añadir al Carrito</button>
+                    </article>
+                    <article class="producto" role="listitem" data-id="p4">
+                        <a href="producto.html?id=p4">
+                            <img src="img/Silla-de-Trabajo-Belgrano.png" alt="Silla de Trabajo Belgrano" />
+                            <h3>Silla de Trabajo Belgrano</h3>
+                            <p class="precio">$xxx</p>
+                        </a>
+                        <button type="button" data-add-cart="p4">Añadir al Carrito</button>
                 </div>
             </section>
         </main>
