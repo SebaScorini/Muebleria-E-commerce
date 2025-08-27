@@ -1,99 +1,122 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mueblería Hermanos Jota</title>
-        <link rel="stylesheet" href="css/style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mueblería Hermanos Jota</title>
+    <!-- Estilos principales -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Tipografías Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
 
-    </head>
-    <body>
-        <header>
-            <!--ENCABEZADO-->
-            <div class="navbar">
-                <span class="logo-proteccion">
-                     <img src="img/logo.svg" alt="Logo de la Mueblería Hermanos Jota" />
-                </span>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html">Catálogo</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
-            </nav>
-            <div class="carrito">
-                    🛒 <span id="cart-count">0</span>
-            </div>
-            
-        </header>
-        <main>
-            <!-- HERO BANNER-->
-            <section id="hero">
-                <div>
-                    <h1>Muebles con historia y diseño</h1>
-                    <p>Más de 30 años creando piezas únicas que combinan artesanía y modernidad.</p>
-                    <p><a href="productos.html">Ver catálogo</a></p>
-                </div>
+<body>
+    <!-- HEADER-->
+    <header>
+        <!-- Logo -->
+        <div class="navbar">
+            <span class="logo-proteccion">
+                <img src="img/logo.svg" alt="Logo de la Mueblería Hermanos Jota">
+            </span>
+        </div>
 
-                <div class="hero-image">
-                    <img src="img/hero-image.jpg" alt="Ambiente con muebles de diseño">
-                </div>
-            </section>
-            <!-- SECCIÓN DE PRODUCTOS DESTACADOS MOMENTANEOS -->
-            <section id="productos-destacados">
-                <h2 id="productos-destacados-title">Productos Destacados</h2>
-                <div id="producto">
-                    <!-- Mostrar los productos destacados -->
-                     <article class="producto" role="listitem" data-id="p1">
-                        <a href="producto.html?id=p1">
-                            <img src="img/Mesa-Comedor-Pampa.png" alt="Mesa Comedor Pampa" />
-                            <h3>Mesa Comedor Pampa</h3>
-                            <p class="precio">$xxx</p>
-                        </a>
-                        <button type="button" data-add-cart="p1">Añadir al Carrito</button>
-                    </article>
-                    <article class="producto" role="listitem" data-id="p2">
-                        <a href="producto.html?id=p2">
-                            <img src="img/Mesa-de-Centro-Araucaria.png" alt="Mesa de Centro Araucaria" />
-                            <h3>Mesa de Centro Araucaria</h3>
-                            <p class="precio">$xxx</p>
-                        </a>
-                        <button type="button" data-add-cart="p2">Añadir al Carrito</button>
-                    </article>
-                    <article class="producto" role="listitem" data-id="p3">
-                        <a href="producto.html?id=p3">
-                            <img src="img/Sofá-Patagonia.png" alt="Sofá Patagonia" />
-                            <h3>Sofá Patagonia</h3>
-                            <p class="precio">$xxx</p>
-                        </a>
-                        <button type="button" data-add-cart="p3">Añadir al Carrito</button>
-                    </article>
-                    <article class="producto" role="listitem" data-id="p4">
-                        <a href="producto.html?id=p4">
-                            <img src="img/Silla-de-Trabajo-Belgrano.png" alt="Silla de Trabajo Belgrano" />
-                            <h3>Silla de Trabajo Belgrano</h3>
-                            <p class="precio">$xxx</p>
-                        </a>
-                        <button type="button" data-add-cart="p4">Añadir al Carrito</button>
-                </div>
-            </section>
-        </main>
-        <footer>
-            <h3>Hermanos  Jota- Casa Taller</h3>
-            <p><strong>&copy; 2025 Hermanos Jota.</strong> Todos los derechos reservados.</p>
-            <p>Av. San Juan 2847, San Cristóbal, CABA</p>
-            <p>Instagram: <a href="https://instagram.com/hermanosjota_ba">@hermanosjota_ba</a></p>
-            <p>Whatsapp: <a href="https://wa.me/54 11 4567-8900">+54 11 4567-8900</a></p>
-            <p>Ventas: <a href="mailto:ventas@hermanosjota.com.ar">ventas@hermanosjota.com.ar</a></p>
-            <p>Soporte: <a href="mailto:info@hermanosjota.com.ar">info@hermanosjota.com.ar</a></p>
-            <h3>Horarios</h3>
+        <!-- Navegación principal -->
+        <nav aria-label="Navegación principal">
             <ul>
-                <li>Lunes a Viernes: 10:00 - 19:00</li>
-                <li>Sábados: 10:00 - 14:00</li>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Catálogo</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
             </ul>
-        </footer>
-        <script src="js/app.js"></script>
-    </body>
+        </nav>
+
+        <!-- Carrito -->
+        <div class="carrito">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </header>
+        <!-- MAIN -->
+    <main>
+        <!-- HERO BANNER -->
+        <section id="hero">
+            <div>
+                <h1>Muebles con historia y diseño</h1>
+                <p>Más de 30 años creando piezas únicas que combinan artesanía y modernidad.</p>
+                <p><a href="productos.html">Ver catálogo</a></p>
+            </div>
+        </section>
+
+        <!-- PRODUCTOS DESTACADOS -->
+        <section id="productos-destacados">
+            <h2 id="productos-destacados-title">Productos Destacados</h2>
+            
+            <div id="producto">
+                <!-- Producto 1 -->
+                <article class="producto" role="listitem" data-id="p1">
+                    <a href="producto.html?id=p1">
+                        <img src="img/Mesa-Comedor-Pampa.png" alt="Mesa Comedor Pampa">
+                        <h3>Mesa Comedor Pampa</h3>
+                        <p class="precio">$xxx</p>
+                    </a>
+                    <button type="button" data-add-cart="p1">Añadir al Carrito</button>
+                </article>
+
+                <!-- Producto 2 -->
+                <article class="producto" role="listitem" data-id="p2">
+                    <a href="producto.html?id=p2">
+                        <img src="img/Mesa-de-Centro-Araucaria.png" alt="Mesa de Centro Araucaria">
+                        <h3>Mesa de Centro Araucaria</h3>
+                        <p class="precio">$xxx</p>
+                    </a>
+                    <button type="button" data-add-cart="p2">Añadir al Carrito</button>
+                </article>
+
+                <!-- Producto 3 -->
+                <article class="producto" role="listitem" data-id="p3">
+                    <a href="producto.html?id=p3">
+                        <img src="img/Sofá-Patagonia.png" alt="Sofá Patagonia">
+                        <h3>Sofá Patagonia</h3>
+                        <p class="precio">$xxx</p>
+                    </a>
+                    <button type="button" data-add-cart="p3">Añadir al Carrito</button>
+                </article>
+
+                <!-- Producto 4 -->
+                <article class="producto" role="listitem" data-id="p4">
+                    <a href="producto.html?id=p4">
+                        <img src="img/Silla-de-Trabajo-Belgrano.png" alt="Silla de Trabajo Belgrano">
+                        <h3>Silla de Trabajo Belgrano</h3>
+                        <p class="precio">$xxx</p>
+                    </a>
+                    <button type="button" data-add-cart="p4">Añadir al Carrito</button>
+                </article>
+            </div>
+        </section>
+    </main>
+
+ <!-- FOOTER -->
+    <footer>
+  <div class="top-footer">
+    <h3>Hermanos Jota</h3>
+    <p>&copy; 2025 Hermanos Jota. Todos los derechos reservados.</p>
+    <p>Av. San Juan 2847, San Cristóbal, CABA</p>
+    <p>Instagram: <a href="#">@hermanosjota_ba</a></p>
+    <p>Whatsapp: <a href="#">+54 11 4567-8900</a></p>
+    <p>Ventas: <a href="mailto:ventas@hermanosjota.com.ar">ventas@hermanosjota.com.ar</a></p>
+    <p>HORARIOS</p>
+    <ul>
+      <li>Lunes a Viernes: 10:00 - 19:00</li>
+      <li>Sábados: 10:00 - 14:00</li>
+    </ul>
+  </div>
+
+  <div class="bottom-footer">
+    <p>Diseño con raíces argentinas</p>
+  </div>
+</footer>
+
+
+    <!-- Script principal -->
+    <script src="js/app.js"></script>
+</body>
 
 </html>
