@@ -295,25 +295,3 @@ footer .bottom-footer {
     color: var(--warm-alabaster);
 }
 
-/* Redes sociales estilo moderno */
-footer .social {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-footer .social a {
-    background: var(--warm-alabaster);
-    color: var(--dark-wood);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
-footer .social a:hover {
-    background: var(--goldenrod);
-    color: white;
-}
