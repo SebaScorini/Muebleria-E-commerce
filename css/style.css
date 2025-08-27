@@ -1,4 +1,5 @@
-/*Paleta de colores*/
+
+/* PALETA DE COLORES (Variables) */
 :root {
     --burnt-sienna: #A0522D;
     --sage-green: #87A96B;
@@ -8,12 +9,17 @@
     --dark-wood: #3E2723;
     --light-grey: #F5F5F5;
 }
+
+
+/* RESET BÁSICO */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-/*Texto del cuerpo*/
+
+
+/*TIPOGRAFÍA Y TEXTO */
 body {
     font-family: 'Inter', sans-serif; 
     font-weight: 400;
@@ -22,26 +28,48 @@ body {
     font-size: 12pt; 
     line-height: 1.6;
 }
-/*Títulos principales*/
+
 h1, h2 {
     font-family: 'Playfair Display', Georgia; 
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 700; 
 }
+
 h1 {
     font-size: 2.5rem;
     color: var(--burnt-sienna);
 }
+
 .small-text, .leyenda {
     font-family: 'Inter', sans-serif;
     font-weight: 300;
 }
+
 .subtitulo {
     font-family: 'Inter', sans-serif;
     font-weight: 500; 
 }
-/* Estilos de encabezado */
+
+
+/* MEDIA QUERIES  */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-image img {
+        max-width: 100%;
+        margin-top: 1rem;
+    }
+}
+/* HEADER Y NAVEGACIÓN*/
 header {
     background-color: var(--dark-wood);
     padding: 1rem 1.5rem;
@@ -50,33 +78,41 @@ header {
     align-items: center;
     flex-wrap: wrap;
 }
+
 .navbar {
     display: flex;
     align-items: center;
     min-width: 120px; 
 }
+
 .navbar img {
     height: 120px;
     width: auto;
-    margin: 24px; 
 }
+
 nav ul {
-    list-style: disc;
+    list-style: none;
     display: flex;
     justify-content: center;
     padding: 1rem 0;
     gap: 4rem;
 }
+
 nav li a {
     color: var(--warm-alabaster);
     text-decoration: none;
     font-weight: 500; 
     padding: 0.5rem 1rem;
     display: block;
+    font-size: 1.25rem;
     transition: color 0.3s ease;
-     font-size: 1.25rem;
 }
 
+nav li a:hover {
+    color: var(--goldenrod);
+}
+
+/* Carrito */
 .carrito {
     font-size: 1.5rem;
     cursor: pointer;
@@ -85,47 +121,199 @@ nav li a {
     gap: 0.25rem;
     padding: 0.5rem;
 }
+
 #cart-count {
     background-color: var(--burnt-sienna);
-    color: rgb(255, 255, 255);
+    color: #fff;
     font-size: 0.99rem;
     padding: 0.2rem 0.55rem;
     border-radius: 60%;
 }
-main {
-    padding: 1.5rem;
+
+
+/* SECCIÓN HERO */
+#hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--warm-alabaster);
+    padding: 3rem 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
 }
 
-/* Pie de página */
-footer {
-    background: linear-gradient(to bottom, var(--dark-wood), #a1887f);
+#hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+#hero p {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+#hero a {
+    background-color: var(--burnt-sienna);
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+#hero a:hover {
+    background-color: var(--goldenrod);
+}
+
+.hero-image img {
+    max-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+
+/* PRODUCTOS DESTACADOS */
+#productos-destacados {
+    margin: 3rem 0;
+}
+
+#productos-destacados h2 {
     text-align: center;
-    padding: 2rem 1.5rem;
-    margin-top: 2rem;
-    border-left: 4px solid var(--burnt-sienna);
-    border-radius: 0 16px 16px 0;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+    color: var(--burnt-sienna);
 }
-footer h3 {
+
+#producto {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.producto {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.producto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.producto img {
+    width: 100%;
+    height: auto;
+}
+
+.producto h3 {
+    font-size: 1.25rem;
+    margin: 1rem;
+    color: var(--dark-wood);
+}
+
+.producto .precio {
+    font-weight: bold;
     color: var(--goldenrod);
-    margin-bottom: 0.5rem;
-    
+    margin: 0 1rem 1rem;
 }
-footer p {
-    margin: 0.5rem 0;
+
+.producto button {
+    background-color: var(--sage-green);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.producto button:hover {
+    background-color: var(--burnt-sienna);
+}
+
+
+/* FOOTER */
+footer {
+    margin-top: 3rem;
+    border-top: 4px solid var(--burnt-sienna);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Fondo del footer */
+footer .top-footer {
+    background-color: var(--dark-wood);
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+footer .top-footer h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    color: var(--goldenrod);
+    margin-bottom: 1rem;
+}
+
+footer .top-footer p,
+footer .top-footer li {
     color: var(--warm-alabaster);
-}
-footer ul {
-    list-style: none;
-    margin-top: 1rem;
-    
-}
-footer li {
     margin: 0.25rem 0;
-    color: var(--warm-alabaster);
 }
+
+/* Links con subrayado animado */
 footer a {
     color: var(--warm-alabaster);
     text-decoration: none;
-    transition: color 0.3s ease;
+    position: relative;
+    transition: color 0.5s ease;
+}
+footer a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: var(--dusty-rose);
+    transition: width 0.3s ease;
+}
+footer a:hover {
+    color: var(--dusty-rose);
+}
+footer a:hover::after {
+    width: 100%;
+}
+
+/* Franja inferior */
+footer .bottom-footer {
+    background-color: var(--dusty-rose);
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+    
+    color: var(--warm-alabaster);
+}
+
+/* Redes sociales estilo moderno */
+footer .social {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+footer .social a {
+    background: var(--warm-alabaster);
+    color: var(--dark-wood);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+footer .social a:hover {
+    background: var(--goldenrod);
+    color: white;
 }
