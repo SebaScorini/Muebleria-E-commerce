@@ -84,7 +84,7 @@ for (const id in productos) {
     <h3>${prod.nombre}</h3>
   </a>
   <p class="precio">$${prod.precio.toLocaleString("es-AR")}</p>
-  label>
+  <label>
   Cantidad: <input type="number" min="1" max="10" value="1">
   </label>
   <button class="agregar-carrito" data-id="${id}">Agregar al carrito</button>
