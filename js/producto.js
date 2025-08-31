@@ -46,8 +46,10 @@ const id = params.get("id");
 const producto = productos[id];
 
 // 3. Generar el HTML
+const contenedor = document.getElementById("detalle-container");
+
 if (producto) {
-  document.getElementById("detalle-container").innerHTML = `
+  contenedor.innerHTML = `
     <div class="producto-detalle">
       <div class="detalle-imagen">
         <img src="${producto.imagen}" alt="${producto.nombre}">
@@ -55,11 +57,11 @@ if (producto) {
       <div class="detalle-info">
         <h1>${producto.nombre}</h1>
         <p>${producto.descripcion}</p>
-        <p class="precio">$${producto.precio}</p>
+        <p class="precio">$${producto.precio.toLocaleString("es-AR")}</p>
         <button>Añadir al Carrito</button>
       </div>
     </div>
   `;
 } else {
-  document.getElementById("detalle-container").innerHTML = `<p>Producto no encontrado.</p>`;
+  contenedor.textContent = "Producto no encontrado.";
 }
