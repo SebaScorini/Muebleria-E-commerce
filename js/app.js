@@ -38,7 +38,7 @@ const productosDestacados = [
     }
 ];
 
-// Render dinámico de productos destacados
+// Renderizar productos en el contenedor
 function mostrarProductosDestacados() {
     const contenedor = document.getElementById("productos-container");
 

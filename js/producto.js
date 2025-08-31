@@ -1,4 +1,4 @@
-// Base de datos de productos (puedes ampliarla)
+// Base de datos de productos
 const productos = {
   p1: {
     nombre: "Mesa Comedor Pampa",
@@ -38,14 +38,14 @@ const productos = {
   }
 };
 
-// 1. Obtener el ID de la URL
+// 1. Obtener el ID del producto desde la URL
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
 // 2. Buscar el producto
 const producto = productos[id];
 
-// 3. Generar el HTML dinámicamente
+// 3. Generar el HTML
 if (producto) {
   document.getElementById("detalle-container").innerHTML = `
     <div class="producto-detalle">

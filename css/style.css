@@ -183,53 +183,11 @@ nav li a:hover {
     color: var(--burnt-sienna);
 }
 
-/* Reglas del carrusel eliminadas */
-/*
-.carrusel-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.carrusel {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 1rem 0;
-    scrollbar-width: none;
-}
-
-.carrusel::-webkit-scrollbar {
-    display: none;
-}
-
-.carrusel-btn {
-    background: var(--burnt-sienna);
-    border: none;
-    color: white;
-    font-size: 1.3rem;
-    padding: 0.4rem 0.8rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.carrusel-btn:hover {
-    background: var(--goldenrod);
-}
-*/
-
-/* New CSS for the grid layout - MANTENIDA */
 #productos-container {
     display: grid;
-    /* Create two columns of equal size. minmax ensures they are never smaller than 250px */
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-    gap: 2rem; /* Spacing between products */
-    justify-items: center; /* Center the products horizontally */
+    gap: 2rem; 
+    justify-items: center;
 }
 
 .producto {
@@ -238,8 +196,8 @@ nav li a:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 100%; /* Ensures the product card fills its grid cell */
-    max-width: 350px; /* Optional: Sets a max width for each product card */
+    width: 100%; 
+    max-width: 350px; 
     text-align: center;
 }
 
@@ -250,8 +208,8 @@ nav li a:hover {
 
 .producto img {
     width: 100%;
-    height: 200px; /* Set a fixed height for consistent image size */
-    object-fit: contain; /* Ensures the image fits without being cropped */
+    height: 200px; 
+    object-fit: contain; 
 }
 
 .producto h3 {
@@ -280,10 +238,10 @@ nav li a:hover {
     background-color: var(--burnt-sienna);
 }
 
-/* Responsive */
+/* Responsive adjustments */
 @media (max-width: 600px) {
     #productos-container {
-        grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
     }
 }
 
@@ -367,7 +325,7 @@ footer .bottom-footer {
     color: var(--warm-alabaster);
 }
 
-/* Responsive */
+/* Responsivo */
 @media (max-width: 900px) {
     footer .top-footer {
         flex-direction: column;
@@ -467,7 +425,7 @@ footer .bottom-footer {
     transform: translateY(-12px) scale(1.03);
     box-shadow: 0 8px 24px rgba(44, 62, 80, 0.18);
     border: 2px solid #2d6a4f;
-} 
+}
 /* Página de detalle de producto */
 .producto-detalle {
     display: flex;
