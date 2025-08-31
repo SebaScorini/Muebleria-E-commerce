@@ -41,25 +41,82 @@ const productosDestacados = [
 // Renderizar productos en el contenedor
 function mostrarProductosDestacados() {
     const contenedor = document.getElementById("productos-container");
+    
+    // Solo ejecutar si el contenedor existe (página de inicio)
+    if (contenedor) {
+        productosDestacados.forEach(prod => {
+            const article = document.createElement("article");
+            article.classList.add("producto");
+            article.setAttribute("data-id", prod.id);
 
-    productosDestacados.forEach(prod => {
-        const article = document.createElement("article");
-        article.classList.add("producto");
-        article.setAttribute("data-id", prod.id);
+            article.innerHTML = `
+                <a href="producto.html?id=${prod.id}">
+                    <img src="${prod.imagen}" alt="${prod.nombre}">
+                    <h3>${prod.nombre}</h3>
+                    <p class="precio">$${prod.precio.toLocaleString("es-AR")}</p>
+                </a>
+                <button type="button" data-add-cart="${prod.id}">
+                    Añadir al Carrito
+                </button>
+            `;
 
-        article.innerHTML = `
-            <a href="producto.html?id=${prod.id}">
-                <img src="${prod.imagen}" alt="${prod.nombre}">
-                <h3>${prod.nombre}</h3>
-                <p class="precio">$${prod.precio.toLocaleString("es-AR")}</p>
-            </a>
-            <button type="button" data-add-cart="${prod.id}">
-                Añadir al Carrito
-            </button>
-        `;
-
-        contenedor.appendChild(article);
-    });
+            contenedor.appendChild(article);
+        });
+    }
 }
 
 document.addEventListener("DOMContentLoaded", mostrarProductosDestacados);
+
+// Funcionalidad para el formulario de contacto
+function manejarFormularioContacto() {
+    const formulario = document.querySelector('.form-contacto');
+    
+    if (formulario) {
+        formulario.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevenir el envío real del formulario
+            
+            // Mostrar mensaje de éxito
+            mostrarMensajeExito();
+            
+            // Limpiar el formulario
+            formulario.reset();
+        });
+    }
+}
+
+function mostrarMensajeExito() {
+    // Crear el elemento del mensaje
+    const mensaje = document.createElement('div');
+    mensaje.className = 'mensaje-exito';
+    mensaje.innerHTML = `
+        <div class="mensaje-contenido">
+            <span class="icono-exito">✓</span>
+            <p>¡Mensaje enviado con éxito!</p>
+            <p>Nos pondremos en contacto contigo a la brevedad.</p>
+        </div>
+    `;
+    
+    // Agregar el mensaje al body
+    document.body.appendChild(mensaje);
+    
+    // Mostrar el mensaje con animación
+    setTimeout(() => {
+        mensaje.classList.add('mostrar');
+    }, 100);
+    
+    // Ocultar el mensaje después de 4 segundos
+    setTimeout(() => {
+        mensaje.classList.remove('mostrar');
+        setTimeout(() => {
+            if (mensaje.parentNode) {
+                mensaje.parentNode.removeChild(mensaje);
+            }
+        }, 300);
+    }, 4000);
+}
+
+// Inicializar la funcionalidad del formulario cuando se carga la página
+document.addEventListener("DOMContentLoaded", function() {
+    mostrarProductosDestacados();
+    manejarFormularioContacto();
+});
