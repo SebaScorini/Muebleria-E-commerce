@@ -58,10 +58,44 @@ if (producto) {
         <h1>${producto.nombre}</h1>
         <p>${producto.descripcion}</p>
         <p class="precio">$${producto.precio.toLocaleString("es-AR")}</p>
-        <button>Añadir al Carrito</button>
+        <label>
+          Cantidad: <input type="number" min="1" max="10" value="1" id="cantidad-producto">
+        </label>
+        <button id="agregar-carrito-detalle">Añadir al Carrito</button>
       </div>
     </div>
   `;
 } else {
   contenedor.textContent = "Producto no encontrado.";
 }
+
+// Lógica para agregar al carrito desde la página de detalle
+function obtenerCarrito() {
+  return JSON.parse(localStorage.getItem('carrito')) || {};
+}
+function guardarCarrito(carrito) {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+function actualizarContador() {
+  const carrito = obtenerCarrito();
+  const total = Object.values(carrito).reduce((acc, prod) => acc + prod.cantidad, 0);
+  const contador = document.getElementById('cart-count');
+  if (contador) contador.textContent = total;
+}
+document.addEventListener('DOMContentLoaded', function() {
+  actualizarContador();
+  const btn = document.getElementById('agregar-carrito-detalle');
+  if (btn) {
+    btn.addEventListener('click', function() {
+      const cantidad = parseInt(document.getElementById('cantidad-producto').value, 10) || 1;
+      let carrito = obtenerCarrito();
+      if (carrito[id]) {
+        carrito[id].cantidad += cantidad;
+      } else {
+        carrito[id] = { cantidad };
+      }
+      guardarCarrito(carrito);
+      actualizarContador();
+    });
+  }
+});

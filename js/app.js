@@ -41,26 +41,29 @@ const productosDestacados = [
 // Renderizar productos en el contenedor
 function mostrarProductosDestacados() {
     const contenedor = document.getElementById("productos-container");
-    
     // Solo ejecutar si el contenedor existe (página de inicio)
     if (contenedor) {
+        // Limpiar el contenedor antes de renderizar
+        contenedor.innerHTML = "";
+        const idsAgregados = new Set();
         productosDestacados.forEach(prod => {
-            const article = document.createElement("article");
-            article.classList.add("producto");
-            article.setAttribute("data-id", prod.id);
-
-            article.innerHTML = `
-                <a href="producto.html?id=${prod.id}">
-                    <img src="${prod.imagen}" alt="${prod.nombre}">
-                    <h3>${prod.nombre}</h3>
-                    <p class="precio">$${prod.precio.toLocaleString("es-AR")}</p>
-                </a>
-                <button type="button" data-add-cart="${prod.id}">
-                    Añadir al Carrito
-                </button>
-            `;
-
-            contenedor.appendChild(article);
+            if (!idsAgregados.has(prod.id)) {
+                idsAgregados.add(prod.id);
+                const article = document.createElement("article");
+                article.classList.add("producto");
+                article.setAttribute("data-id", prod.id);
+                article.innerHTML = `
+                    <a href="producto.html?id=${prod.id}">
+                        <img src="${prod.imagen}" alt="${prod.nombre}">
+                        <h3>${prod.nombre}</h3>
+                        <p class="precio">$${prod.precio.toLocaleString("es-AR")}</p>
+                    </a>
+                    <button type="button" data-add-cart="${prod.id}">
+                        Añadir al Carrito
+                    </button>
+                `;
+                contenedor.appendChild(article);
+            }
         });
     }
 }
@@ -114,6 +117,35 @@ function mostrarMensajeExito() {
         }, 300);
     }, 4000);
 }
+
+// --- Carrito funcional para productos destacados ---
+function obtenerCarrito() {
+  return JSON.parse(localStorage.getItem('carrito')) || {};
+}
+function guardarCarrito(carrito) {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+function actualizarContador() {
+  const carrito = obtenerCarrito();
+  const total = Object.values(carrito).reduce((acc, prod) => acc + prod.cantidad, 0);
+  const contador = document.getElementById('cart-count');
+  if (contador) contador.textContent = total;
+}
+document.addEventListener('click', function(e) {
+  if (e.target.matches('button[data-add-cart]')) {
+    const id = e.target.getAttribute('data-add-cart');
+    let carrito = obtenerCarrito();
+    if (carrito[id]) {
+      carrito[id].cantidad += 1;
+    } else {
+      carrito[id] = { cantidad: 1 };
+    }
+    guardarCarrito(carrito);
+    actualizarContador();
+  }
+});
+document.addEventListener('DOMContentLoaded', actualizarContador);
+// --- Fin carrito funcional ---
 
 // Inicializar la funcionalidad del formulario cuando se carga la página
 document.addEventListener("DOMContentLoaded", function() {

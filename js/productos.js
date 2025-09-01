@@ -1,3 +1,18 @@
+// Funciones de carrito
+function obtenerCarrito() {
+  return JSON.parse(localStorage.getItem('carrito')) || {};
+}
+function guardarCarrito(carrito) {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+function actualizarContador() {
+  const carrito = obtenerCarrito();
+  const total = Object.values(carrito).reduce((acc, prod) => acc + prod.cantidad, 0);
+  const contador = document.getElementById('cart-count');
+  if (contador) contador.textContent = total;
+}
+document.addEventListener('DOMContentLoaded', actualizarContador);
+
 // Base de datos de productos
 const productos = {
   p1: {
@@ -67,6 +82,8 @@ const productos = {
     imagen: "img/Sillón-Copacabana.png"
   }
 };
+// Hacer productos global para otros scripts
+window.productos = productos;
 
 // Contenedor de los productos
 const contenedor = document.querySelector(".catalogo-grid");
@@ -92,3 +109,26 @@ for (const id in productos) {
 
   contenedor.appendChild(card);
 }
+
+// Evento para agregar al carrito
+contenedor.addEventListener('click', function(e) {
+  if (e.target.classList.contains('agregar-carrito')) {
+    const id = e.target.dataset.id;
+    const cantidadInput = e.target.parentElement.querySelector('input[type="number"]');
+    const cantidad = parseInt(cantidadInput.value, 10);
+
+    let carrito = obtenerCarrito();
+    if (carrito[id]) {
+      carrito[id].cantidad += cantidad;
+    } else {
+      carrito[id] = { cantidad };
+    }
+    guardarCarrito(carrito);
+    actualizarContador();
+    // Mensaje de confirmación
+    e.target.textContent = 'Agregado!';
+    setTimeout(() => {
+      e.target.textContent = 'Agregar al carrito';
+    }, 1200);
+  }
+});
