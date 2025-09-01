@@ -213,7 +213,7 @@ nav li a:hover {
 }
 
 .producto h3 {
-    font-size: 1.25rem;
+    font-size: medium;
     margin: 1rem;
     color: var(--dark-wood);
 }
