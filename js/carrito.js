@@ -46,7 +46,9 @@ function mostrarCarrito() {
     total += subtotal;
     const fila = document.createElement('tr');
     fila.innerHTML = `
-      <td><img src="${prod.imagen}" alt="${prod.nombre}" style="width:120px;height:auto;vertical-align:middle;margin-right:12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.12);"> <span style="vertical-align:middle;">${prod.nombre}</span></td>
+      <td class="celda-producto-carrito">
+        <img src="${prod.imagen}" alt="${prod.nombre}" class="img-producto-carrito"> <span>${prod.nombre}</span>
+      </td>
       <td>${cantidad}</td>
       <td>$${prod.precio.toLocaleString('es-AR')}</td>
       <td>$${subtotal.toLocaleString('es-AR')}</td>
