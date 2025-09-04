@@ -133,15 +133,24 @@ function actualizarContador() {
 }
 document.addEventListener('click', function(e) {
   if (e.target.matches('button[data-add-cart]')) {
-    const id = e.target.getAttribute('data-add-cart');
+    const button = e.target;
+    const id = button.getAttribute('data-add-cart');
     let carrito = obtenerCarrito();
+
     if (carrito[id]) {
       carrito[id].cantidad += 1;
     } else {
       carrito[id] = { cantidad: 1 };
     }
+
     guardarCarrito(carrito);
     actualizarContador();
+
+    // Mensaje de confirmación visual
+    button.textContent = 'Agregado!';
+    setTimeout(() => {
+      button.textContent = 'Añadir al Carrito';
+    }, 1200);
   }
 });
 document.addEventListener('DOMContentLoaded', actualizarContador);
