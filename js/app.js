@@ -315,6 +315,6 @@ document.addEventListener("DOMContentLoaded", async function() {
         console.error('datosProductos no está disponible en app.js');
     }
     
-    // Funcionalidad del formulario de contacto (disponible en todas las páginas)
+    // Funcionalidad del formulario de contacto
     manejarFormularioContacto();
 });

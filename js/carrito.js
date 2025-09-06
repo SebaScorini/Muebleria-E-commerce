@@ -1,4 +1,4 @@
-// carrito.js - Versión simplificada como el original con carga asíncrona
+
 
 let productosMap = {};
 let funcionesDatos = {};

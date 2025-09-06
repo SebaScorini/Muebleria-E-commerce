@@ -737,7 +737,7 @@ footer .bottom-footer {
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  background-color: #fff; /* Fondo blanco para la tabla */
+  background-color: #fff;
 }
 
 .tabla-carrito th, 
@@ -748,7 +748,7 @@ footer .bottom-footer {
 }
 
 .tabla-carrito th {
-  background-color: var(--dark-wood); /* Mismo color que el header */
+  background-color: var(--dark-wood); 
   color: #fff;
   text-transform: uppercase;
   font-size: 0.9rem;
@@ -790,7 +790,7 @@ footer .bottom-footer {
   font-size: 1.5rem;
 }
 
-/* Estilos responsive para tabla del carrito */
+
 @media (max-width: 768px) {
   .tabla-carrito {
     font-size: 0.85rem;
@@ -834,7 +834,7 @@ footer .bottom-footer {
     padding-top: 160px; /* Ajustar según la altura del header */
   }
   
-  /* Asegurar que el header no se corte en pantallas muy pequeñas */
+  
   .navbar img {
     height: 80px; /* Reducir tamaño del logo en mobile */
   }
@@ -867,5 +867,5 @@ footer .bottom-footer {
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-  flex-shrink: 0; /* Evita que la imagen se encoja */
+  flex-shrink: 0;
 }

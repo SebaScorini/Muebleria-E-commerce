@@ -1,6 +1,3 @@
-// data.js
-// Este archivo contiene todos los datos de productos centralizados en un array
-
 const productos = [
   {
     id: "p1",
