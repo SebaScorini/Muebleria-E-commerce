@@ -164,36 +164,17 @@ function mostrarCargando(contenedor, mensaje = 'Cargando productos...') {
       text-align: center;
       min-height: 200px;
     ">
-      <div class="spinner" style="
-        width: 50px;
-        height: 50px;
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #A0522D;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin-bottom: 1rem;
-      "></div>
+      <div class="spinner"></div>
       <p style="
-        color: #A0522D;
+        color: var(--burnt-sienna);
         font-size: 1.1rem;
         font-weight: 500;
       ">${mensaje}</p>
     </div>
   `;
-  
-  // Agregar animación CSS si no existe
-  if (!document.getElementById('spinner-styles')) {
-    const style = document.createElement('style');
-    style.id = 'spinner-styles';
-    style.textContent = `
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    `;
-    document.head.appendChild(style);
-  }
 }
+
+  
 
 // Función para mostrar error de carga
 function mostrarError(contenedor, mensaje = 'Error al cargar los productos') {
