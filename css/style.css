@@ -602,6 +602,7 @@ footer .bottom-footer {
     font-size: 1rem;
     font-family: 'Inter', sans-serif;
     transition: border-color 0.2s;
+    resize: none;
 }
 
 .form-contacto input:focus,
