@@ -817,6 +817,58 @@ footer .bottom-footer {
   }
 }
 
+@media (max-width: 600px) {
+  .tabla-carrito thead {
+    display: none; /* Ocultar encabezados en mobile */
+  }
+
+  .tabla-carrito, .tabla-carrito tbody, .tabla-carrito tr, .tabla-carrito td {
+    display: block;
+    width: 100%;
+  }
+
+  .tabla-carrito tr {
+    margin-bottom: 1.5rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+
+  .tabla-carrito td {
+    text-align: right; /* Alinear el contenido a la derecha */
+    padding-left: 50%; /* Dejar espacio para la etiqueta */
+    position: relative;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .tabla-carrito tr td:last-child {
+    border-bottom: none;
+  }
+
+  .tabla-carrito td::before {
+    content: attr(data-label); /* Usar el atributo data-label como etiqueta */
+    position: absolute;
+    left: 16px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+    color: var(--dark-wood);
+  }
+
+  .tabla-carrito td[data-label="Producto"] {
+    padding-left: 16px;
+    text-align: left;
+  }
+
+  .tabla-carrito td[data-label="Producto"]::before {
+    /* Ocultamos la etiqueta "Producto" porque la imagen y el nombre ya son claros */
+    display: none;
+  }
+}
+
 /* AUTO-HIDE HEADER PARA MOBILE */
 @media (max-width: 768px) {
   header {

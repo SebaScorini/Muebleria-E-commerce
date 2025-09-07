@@ -20,7 +20,7 @@ function mostrarCarrito() {
   let total = 0;
   const tabla = document.createElement('table');
   tabla.className = 'tabla-carrito'; // Agregar clase CSS
-  tabla.innerHTML = `<tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th>Acciones</th></tr>`;
+  tabla.innerHTML = `<thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th>Acciones</th></tr></thead>`;
 
   for (const id in carrito) {
     const prod = productosMap[id];
@@ -30,11 +30,11 @@ function mostrarCarrito() {
     total += subtotal;
     const fila = document.createElement('tr');
       fila.innerHTML = `
-        <td><img src="${prod.imagen}" alt="${prod.nombre}" style="width:80px;height:auto;vertical-align:middle;margin-right:12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.12);"> <span style="vertical-align:middle;">${prod.nombre}</span></td>
-        <td>${cantidad}</td>
-        <td>$${prod.precio.toLocaleString('es-AR')}</td>
-        <td>$${subtotal.toLocaleString('es-AR')}</td>
-        <td><button class="eliminar btn-eliminar" data-id="${id}">Eliminar</button></td>
+        <td data-label="Producto"><img src="${prod.imagen}" alt="${prod.nombre}" style="width:80px;height:auto;vertical-align:middle;margin-right:12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.12);"> <span style="vertical-align:middle;">${prod.nombre}</span></td>
+        <td data-label="Cantidad">${cantidad}</td>
+        <td data-label="Precio">$${prod.precio.toLocaleString('es-AR')}</td>
+        <td data-label="Subtotal">$${subtotal.toLocaleString('es-AR')}</td>
+        <td data-label="Acciones"><button class="eliminar btn-eliminar" data-id="${id}">Eliminar</button></td>
       `;
     tabla.appendChild(fila);
   }
