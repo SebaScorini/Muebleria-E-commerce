@@ -26,65 +26,32 @@ function mostrarCarrito() {
         return;
     }
 
-    let total = 0;
-    const tabla = document.createElement('table');
-    tabla.className = 'tabla-carrito';
-    const thead = document.createElement('thead');
-    thead.innerHTML = `<tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th>Acciones</th></tr>`;
-    const tbody = document.createElement('tbody');
+  let total = 0;
+  const tabla = document.createElement('table');
+  tabla.className = 'tabla-carrito'; // Agregar clase CSS
+  tabla.innerHTML = `<thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th>Acciones</th></tr></thead>`;
 
-    for (const id in carrito) {
-        const prod = productosMap[id];
-        if (!prod) continue;
-
-        const cantidad = carrito[id].cantidad;
-        const subtotal = prod.precio * cantidad;
-        total += subtotal;
-
-        const fila = document.createElement('tr');
-
-        // Celda Producto
-        const celdaProd = document.createElement('td');
-        celdaProd.dataset.label = "Producto";
-        celdaProd.innerHTML = `<img src="${prod.imagen}" alt="${prod.nombre}" style="width:80px;height:auto;vertical-align:middle;margin-right:12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.12);"> <span style="vertical-align:middle;">${prod.nombre}</span>`;
-
-        // Celda Cantidad
-        const celdaCant = document.createElement('td');
-        celdaCant.dataset.label = "Cantidad";
-        celdaCant.textContent = cantidad;
-
-        // Celda Precio
-        const celdaPrecio = document.createElement('td');
-        celdaPrecio.dataset.label = "Precio";
-        celdaPrecio.textContent = `$${prod.precio.toLocaleString('es-AR')}`;
-
-        // Celda Subtotal
-        const celdaSubtotal = document.createElement('td');
-        celdaSubtotal.dataset.label = "Subtotal";
-        celdaSubtotal.textContent = `$${subtotal.toLocaleString('es-AR')}`;
-
-        // Celda Acciones
-        const celdaAcciones = document.createElement('td');
-        celdaAcciones.dataset.label = "Acciones";
-        const btnEliminar = document.createElement('button');
-        btnEliminar.className = 'eliminar btn-eliminar';
-        btnEliminar.dataset.id = id;
-        btnEliminar.textContent = 'Eliminar';
-        celdaAcciones.appendChild(btnEliminar);
-
-        fila.append(celdaProd, celdaCant, celdaPrecio, celdaSubtotal, celdaAcciones);
-        tbody.appendChild(fila);
-    }
-
-    tabla.append(thead, tbody);
-    contenedor.appendChild(tabla);
-
-    const totalDiv = document.createElement('div');
-    totalDiv.className = 'carrito-total';
-    const h3Total = document.createElement('h3');
-    h3Total.textContent = `Total: $${total.toLocaleString('es-AR')}`;
-    totalDiv.appendChild(h3Total);
-    contenedor.appendChild(totalDiv);
+  for (const id in carrito) {
+    const prod = productosMap[id];
+    if (!prod) continue;
+    const cantidad = carrito[id].cantidad;
+    const subtotal = prod.precio * cantidad;
+    total += subtotal;
+    const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td data-label="Producto"><img src="${prod.imagen}" alt="${prod.nombre}" style="width:80px;height:auto;vertical-align:middle;margin-right:12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.12);"> <span style="vertical-align:middle;">${prod.nombre}</span></td>
+        <td data-label="Cantidad">${cantidad}</td>
+        <td data-label="Precio">$${prod.precio.toLocaleString('es-AR')}</td>
+        <td data-label="Subtotal">$${subtotal.toLocaleString('es-AR')}</td>
+        <td data-label="Acciones"><button class="eliminar btn-eliminar" data-id="${id}">Eliminar</button></td>
+      `;
+    tabla.appendChild(fila);
+  }
+  contenedor.appendChild(tabla);
+  const totalDiv = document.createElement('div');
+  totalDiv.className = 'carrito-total';
+  totalDiv.innerHTML = `<h3>Total: $${total.toLocaleString('es-AR')}</h3>`;
+  contenedor.appendChild(totalDiv);
 }
 
 // Función para inicializar el carrito

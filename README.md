@@ -1,5 +1,6 @@
 # Grupo-2
 ## E-commerce Mueblería Hermanos Jota 
+- https://tuteku.github.io/Grupo-2/
 ### Integrantes:
 - Lucas Rodrigo Figueredo
 - Mateo Quispe
@@ -7,7 +8,7 @@
   
 # 🪑 Mueblería Hermanos Jota
 ---
-- https://tuteku.github.io/Grupo-2/
+
 ## Descripción del Proyecto
 Este proyecto consiste en el desarrollo de un sitio web para la **Mueblería Hermanos Jota**, que permite a los clientes visualizar un catálogo de productos, ver los detalles de cada artículo y simular la selección de sus favoritos mediante un carrito de compras.
 
