@@ -1,26 +1,35 @@
+import {
+    cargarProductos,
+    obtenerCarrito,
+    guardarCarrito,
+    actualizarContador,
+    mostrarCargando,
+    mostrarError
+} from './data.js';
 
 
 let productosMap = {};
-let funcionesDatos = {};
 
 // Función para mostrar el carrito
 function mostrarCarrito() {
-  const carrito = funcionesDatos.obtenerCarrito();
-  const contenedor = document.getElementById('carrito-contenido');
-  
-  if (!contenedor) return; // Si no existe el contenedor, no hacer nada
-  
-  contenedor.innerHTML = '';
+    const carrito = obtenerCarrito();
+    const contenedor = document.getElementById('carrito-contenido');
 
-  if (Object.keys(carrito).length === 0) {
-    contenedor.innerHTML = '<p>El carrito está vacío.</p>';
-    return;
-  }
+    if (!contenedor) return; // Si no existe el contenedor, no hacer nada
+
+    contenedor.innerHTML = ''; // Limpiar contenedor
+
+    if (Object.keys(carrito).length === 0) {
+        const p = document.createElement('p');
+        p.textContent = 'El carrito está vacío.';
+        contenedor.appendChild(p);
+        return;
+    }
 
   let total = 0;
   const tabla = document.createElement('table');
   tabla.className = 'tabla-carrito'; // Agregar clase CSS
-  tabla.innerHTML = `<tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th>Acciones</th></tr>`;
+  tabla.innerHTML = `<thead><tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th><th>Acciones</th></tr></thead>`;
 
   for (const id in carrito) {
     const prod = productosMap[id];
@@ -30,11 +39,11 @@ function mostrarCarrito() {
     total += subtotal;
     const fila = document.createElement('tr');
       fila.innerHTML = `
-        <td><img src="${prod.imagen}" alt="${prod.nombre}" style="width:80px;height:auto;vertical-align:middle;margin-right:12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.12);"> <span style="vertical-align:middle;">${prod.nombre}</span></td>
-        <td>${cantidad}</td>
-        <td>$${prod.precio.toLocaleString('es-AR')}</td>
-        <td>$${subtotal.toLocaleString('es-AR')}</td>
-        <td><button class="eliminar btn-eliminar" data-id="${id}">Eliminar</button></td>
+        <td data-label="Producto"><img src="${prod.imagen}" alt="${prod.nombre}" style="width:80px;height:auto;vertical-align:middle;margin-right:12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.12);"> <span style="vertical-align:middle;">${prod.nombre}</span></td>
+        <td data-label="Cantidad">${cantidad}</td>
+        <td data-label="Precio">$${prod.precio.toLocaleString('es-AR')}</td>
+        <td data-label="Subtotal">$${subtotal.toLocaleString('es-AR')}</td>
+        <td data-label="Acciones"><button class="eliminar btn-eliminar" data-id="${id}">Eliminar</button></td>
       `;
     tabla.appendChild(fila);
   }
@@ -46,55 +55,40 @@ function mostrarCarrito() {
 }
 
 // Función para inicializar el carrito
-async function inicializarCarrito() {
-  // Verificar que datosProductos esté disponible
-  if (!window.datosProductos) {
-    console.error('datosProductos no está disponible');
-    return;
-  }
-
-  // Obtener funciones desde data.js
-  const { cargarProductos, obtenerCarrito, guardarCarrito, actualizarContador, mostrarCargando, mostrarError } = window.datosProductos;
-  funcionesDatos = { obtenerCarrito, guardarCarrito, actualizarContador };
-
-  try {
-    // Cargar productos de forma asíncrona
+export async function inicializarCarrito() {
     const contenedor = document.getElementById('carrito-contenido');
-    if (contenedor) {
-      mostrarCargando(contenedor, 'Cargando carrito...');
-    }
-    
-    const { porId } = await cargarProductos();
-    productosMap = porId;
-
-    // Mostrar carrito una vez que los productos están cargados
-    mostrarCarrito();
-    
-  } catch (error) {
-    console.error('Error al cargar productos para el carrito:', error);
-    const contenedor = document.getElementById('carrito-contenido');
-    if (contenedor) {
-      mostrarError(contenedor, 'Error al cargar el carrito');
-    }
-  }
+    if (!contenedor) return;
 
   // Evento para eliminar productos (versión simple como el original)
   document.addEventListener('click', function(e) {
     if (e.target.classList.contains('eliminar')) {
-      const id = e.target.dataset.id;
-      let carrito = funcionesDatos.obtenerCarrito();
-      delete carrito[id];
-      funcionesDatos.guardarCarrito(carrito);
-      mostrarCarrito();
-      funcionesDatos.actualizarContador();
+        const id = e.target.dataset.id;
+        let carrito = obtenerCarrito();
+        delete carrito[id];
+        guardarCarrito(carrito);
+        mostrarCarrito(); // Re-renderizar el carrito
+        actualizarContador();
     }
   });
 
-  // Actualizar contador inicial
-  funcionesDatos.actualizarContador();
-}
+    try {
+        // Cargar productos de forma asíncrona
+        if (contenedor) {
+            mostrarCargando(contenedor, 'Cargando carrito...');
+        }
 
-// Inicializar carrito cuando se carga la página
-document.addEventListener('DOMContentLoaded', async function() {
-  await inicializarCarrito();
-});
+        const {
+            porId
+        } = await cargarProductos();
+        productosMap = porId;
+
+        // Mostrar carrito una vez que los productos están cargados
+        mostrarCarrito();
+
+    } catch (error) {
+        console.error('Error al cargar productos para el carrito:', error);
+        if (contenedor) {
+            mostrarError(contenedor, 'Error al cargar el carrito');
+        }
+    }
+}

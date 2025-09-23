@@ -1,50 +1,62 @@
-// app.js - Archivo unificado con todas las funcionalidades y carga asíncrona
+// app.js - Lógica para las páginas de inicio, catálogo, detalle y contacto.
+
+import {
+    cargarProductos,
+    cargarProductoPorId,
+    obtenerCarrito,
+    guardarCarrito,
+    actualizarContador,
+    mostrarCargando,
+    mostrarError
+} from './data.js';
 
 // Función para mostrar productos destacados (página de inicio)
-async function mostrarProductosDestacados() {
+export async function mostrarProductosDestacados() {
     const contenedor = document.getElementById("productos-container");
     if (!contenedor) return; // Solo ejecutar si el contenedor existe
-
-    // Verificar que datosProductos esté disponible
-    if (!window.datosProductos) {
-        console.error('datosProductos no está disponible');
-        return;
-    }
-
-    const { cargarProductos, obtenerCarrito, guardarCarrito, actualizarContador, mostrarCargando, mostrarError } = window.datosProductos;
 
     try {
         // Mostrar estado de carga
         mostrarCargando(contenedor, 'Cargando productos destacados...');
 
         // Cargar productos de forma asíncrona
-        const { lista: productosCompletos } = await cargarProductos();
+        const {
+            lista: productosCompletos
+        } = await cargarProductos();
 
         // Array de productos destacados (seleccionamos 6 productos)
         const productosDestacados = productosCompletos.slice(0, 6);
 
         // Limpiar contenedor y renderizar productos
         contenedor.innerHTML = "";
-        const idsAgregados = new Set();
-        
+
         productosDestacados.forEach(prod => {
-            if (!idsAgregados.has(prod.id)) {
-                idsAgregados.add(prod.id);
-                const article = document.createElement("article");
-                article.classList.add("producto");
-                article.setAttribute("data-id", prod.id);
-                article.innerHTML = `
-                    <a href="producto.html?id=${prod.id}">
-                        <img src="${prod.imagen}" alt="${prod.nombre}">
-                        <h3>${prod.nombre}</h3>
-                        <p class="precio">$${prod.precio.toLocaleString("es-AR")}</p>
-                    </a>
-                    <button type="button" data-add-cart="${prod.id}">
-                        Añadir al Carrito
-                    </button>
-                `;
-                contenedor.appendChild(article);
-            }
+            const article = document.createElement("article");
+            article.className = "producto";
+            article.dataset.id = prod.id;
+
+            const link = document.createElement('a');
+            link.href = `producto.html?id=${prod.id}`;
+
+            const img = document.createElement('img');
+            img.src = prod.imagen;
+            img.alt = prod.nombre;
+
+            const h3 = document.createElement('h3');
+            h3.textContent = prod.nombre;
+
+            const p = document.createElement('p');
+            p.className = 'precio';
+            p.textContent = `$${prod.precio.toLocaleString("es-AR")}`;
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.dataset.addCart = prod.id;
+            button.textContent = 'Añadir al Carrito';
+
+            link.append(img, h3, p);
+            article.append(link, button);
+            contenedor.appendChild(article);
         });
 
         console.log('✅ Productos destacados renderizados exitosamente');
@@ -56,52 +68,62 @@ async function mostrarProductosDestacados() {
 }
 
 // Función para inicializar la página de productos (catálogo)
-async function inicializarProductos() {
+export async function inicializarProductos() {
     const contenedor = document.querySelector(".catalogo-grid");
     if (!contenedor) return; // Si no existe el contenedor, salir
-    
-    // Verificar que datosProductos esté disponible
-    if (!window.datosProductos) {
-        console.error('datosProductos no está disponible');
-        return;
-    }
-
-    const { cargarProductos, obtenerCarrito, guardarCarrito, actualizarContador, mostrarCargando, mostrarError } = window.datosProductos;
 
     try {
         // Mostrar estado de carga
         mostrarCargando(contenedor, 'Cargando catálogo de productos...');
 
         // Cargar productos de forma asíncrona
-        const { lista: productosLista } = await cargarProductos();
+        const {
+            lista: productosLista
+        } = await cargarProductos();
 
         // Limpiar contenedor
         contenedor.innerHTML = "";
 
         // Generar el HTML para cada producto
         productosLista.forEach(prod => {
-            const card = document.createElement("div");
-            card.className = "producto";
+            const productoDiv = document.createElement("div");
+            productoDiv.className = "producto";
 
-            card.innerHTML = `
-            <a href="producto.html?id=${prod.id}">
-              <img src="${prod.imagen}" alt="${prod.nombre}">
-              <h3>${prod.nombre}</h3>
-            </a>
-            <p class="precio">$${prod.precio.toLocaleString("es-AR")}</p>
-            <label>
-            Cantidad: <input type="number" min="1" max="10" value="1">
-            </label>
-            <button class="agregar-carrito" data-id="${prod.id}">Agregar al carrito</button>
-            `;
+            const link = document.createElement('a');
+            link.href = `producto.html?id=${prod.id}`;
+            const img = document.createElement('img');
+            img.src = prod.imagen;
+            img.alt = prod.nombre;
+            const h3 = document.createElement('h3');
+            h3.textContent = prod.nombre;
+            link.append(img, h3);
 
-            contenedor.appendChild(card);
+            const precio = document.createElement('p');
+            precio.className = 'precio';
+            precio.textContent = `$${prod.precio.toLocaleString("es-AR")}`;
+
+            const label = document.createElement('label');
+            label.textContent = 'Cantidad: ';
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.min = '1';
+            input.max = '10';
+            input.value = '1';
+            label.appendChild(input);
+
+            const button = document.createElement('button');
+            button.className = 'agregar-carrito';
+            button.dataset.id = prod.id;
+            button.textContent = 'Agregar al carrito';
+
+            productoDiv.append(link, precio, label, button);
+            contenedor.appendChild(productoDiv);
         });
 
         // Evento para agregar al carrito
         contenedor.addEventListener('click', function(e) {
             if (e.target.classList.contains('agregar-carrito')) {
-                const id = e.target.dataset.id;
+                const id = parseInt(e.target.dataset.id, 10);
                 const cantidadInput = e.target.parentElement.querySelector('input[type="number"]');
                 const cantidad = parseInt(cantidadInput.value, 10);
 
@@ -109,7 +131,9 @@ async function inicializarProductos() {
                 if (carrito[id]) {
                     carrito[id].cantidad += cantidad;
                 } else {
-                    carrito[id] = { cantidad };
+                    carrito[id] = {
+                        cantidad
+                    };
                 }
                 guardarCarrito(carrito);
                 actualizarContador();
@@ -130,21 +154,13 @@ async function inicializarProductos() {
 }
 
 // Función para inicializar la página de producto individual
-async function inicializarProducto() {
-  const contenedor = document.getElementById("detalle-container");
-  if (!contenedor) return; // Si no existe el contenedor, salir
-
-  // Verificar que datosProductos esté disponible
-  if (!window.datosProductos) {
-    console.error('datosProductos no está disponible');
-    return;
-  }
-
-  const { cargarProductoPorId, obtenerCarrito, guardarCarrito, actualizarContador, mostrarCargando, mostrarError } = window.datosProductos;
+export async function inicializarProducto() {
+    const contenedor = document.getElementById("detalle-container");
+    if (!contenedor) return; // Si no existe el contenedor, salir
 
   // 1. Obtener el ID del producto desde la URL
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const id = parseInt(params.get("id"), 10); // Convertir el ID de la URL a número
 
   if (!id) {
     console.error('ID del producto no encontrado en la URL');
@@ -165,23 +181,44 @@ async function inicializarProducto() {
       return;
     }
 
-    // 3. Generar el HTML
-    contenedor.innerHTML = `
-      <div class="producto-detalle">
-        <div class="detalle-imagen">
-          <img src="${producto.imagen}" alt="${producto.nombre}">
-        </div>
-        <div class="detalle-info">
-          <h1>${producto.nombre}</h1>
-          <p>${producto.descripcion}</p>
-          <p class="precio">$${producto.precio.toLocaleString("es-AR")}</p>
-          <label>
-            Cantidad: <input type="number" min="1" max="10" value="1" id="cantidad-producto">
-          </label>
-          <button id="agregar-carrito-detalle">Añadir al Carrito</button>
-        </div>
-      </div>
-    `;
+        // 3. Generar el HTML de forma segura
+        contenedor.innerHTML = ''; // Limpiar
+
+        const detalleDiv = document.createElement('div');
+        detalleDiv.className = 'producto-detalle';
+
+        const imagenDiv = document.createElement('div');
+        imagenDiv.className = 'detalle-imagen';
+        const img = document.createElement('img');
+        img.src = producto.imagen;
+        img.alt = producto.nombre;
+        imagenDiv.appendChild(img);
+
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'detalle-info';
+        const h1 = document.createElement('h1');
+        h1.textContent = producto.nombre;
+        const pDesc = document.createElement('p');
+        pDesc.textContent = producto.descripcion;
+        const pPrecio = document.createElement('p');
+        pPrecio.className = 'precio';
+        pPrecio.textContent = `$${producto.precio.toLocaleString("es-AR")}`;
+        const label = document.createElement('label');
+        label.textContent = 'Cantidad: ';
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.min = '1';
+        input.max = '10';
+        input.value = '1';
+        input.id = 'cantidad-producto';
+        label.appendChild(input);
+        const button = document.createElement('button');
+        button.id = 'agregar-carrito-detalle';
+        button.textContent = 'Añadir al Carrito';
+
+        infoDiv.append(h1, pDesc, pPrecio, label, button);
+        detalleDiv.append(imagenDiv, infoDiv);
+        contenedor.appendChild(detalleDiv);
 
     // Lógica para agregar al carrito desde la página de detalle
     const btn = document.getElementById('agregar-carrito-detalle');
@@ -192,7 +229,9 @@ async function inicializarProducto() {
         if (carrito[id]) {
           carrito[id].cantidad += cantidad;
         } else {
-          carrito[id] = { cantidad };
+          carrito[id] = {
+                        cantidad
+                    };
         }
         guardarCarrito(carrito);
         actualizarContador();
@@ -205,9 +244,6 @@ async function inicializarProducto() {
       });
     }
 
-    // Actualizar contador
-    actualizarContador();
-
     console.log('✅ Producto detalle renderizado exitosamente');
 
   } catch (error) {
@@ -216,26 +252,37 @@ async function inicializarProducto() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", mostrarProductosDestacados);
-
 // Funcionalidad para el formulario de contacto
-function manejarFormularioContacto() {
+export function manejarFormularioContacto() {
     const formulario = document.querySelector('.form-contacto');
-    
+
     if (formulario) {
         formulario.addEventListener('submit', function(e) {
             e.preventDefault(); // Prevenir el envío real del formulario
-            
+
+            // Validación simple
+            const nombre = formulario.querySelector('#nombre').value.trim();
+            const email = formulario.querySelector('#email').value.trim();
+            const mensaje = formulario.querySelector('#mensaje').value.trim();
+
+            if (!nombre || !email || !mensaje) {
+                alert('Por favor, completa todos los campos del formulario.');
+                return; // Detiene la ejecución si la validación falla
+            }
+
             // Mostrar mensaje de éxito
             mostrarMensajeExito();
-            
+
             // Limpiar el formulario
             formulario.reset();
         });
     }
 }
 
-function mostrarMensajeExito() {
+/**
+ * Muestra una ventana modal de éxito.
+ */
+export function mostrarMensajeExito() {
     // Crear el elemento del mensaje
     const mensaje = document.createElement('div');
     mensaje.className = 'mensaje-exito';
@@ -246,15 +293,15 @@ function mostrarMensajeExito() {
             <p>Nos pondremos en contacto contigo a la brevedad.</p>
         </div>
     `;
-    
+
     // Agregar el mensaje al body
     document.body.appendChild(mensaje);
-    
+
     // Mostrar el mensaje con animación
     setTimeout(() => {
         mensaje.classList.add('mostrar');
     }, 100);
-    
+
     // Ocultar el mensaje después de 4 segundos
     setTimeout(() => {
         mensaje.classList.remove('mostrar');
@@ -267,54 +314,26 @@ function mostrarMensajeExito() {
 }
 
 // --- Carrito funcional para productos destacados ---
-function configurarCarritoDestacados() {
-    // Verificar que datosProductos esté disponible
-    if (!window.datosProductos) {
-        console.error('datosProductos no está disponible');
-        return;
-    }
-
-    const { obtenerCarrito, guardarCarrito, actualizarContador } = window.datosProductos;
-
+export function configurarCarritoDestacados() {
     document.addEventListener('click', function(e) {
-      if (e.target.matches('button[data-add-cart]')) {
-        const id = e.target.getAttribute('data-add-cart');
-        let carrito = obtenerCarrito();
-        if (carrito[id]) {
-          carrito[id].cantidad += 1;
-        } else {
-          carrito[id] = { cantidad: 1 };
+        if (e.target.matches('button[data-add-cart]')) {
+            const id = parseInt(e.target.getAttribute('data-add-cart'), 10);
+            let carrito = obtenerCarrito();
+            if (carrito[id]) {
+                carrito[id].cantidad += 1;
+            } else {
+                carrito[id] = {
+                    cantidad: 1
+                };
+            }
+            guardarCarrito(carrito);
+            actualizarContador();
+
+            // Mostrar mensaje de confirmación
+            e.target.textContent = '¡Agregado!';
+            setTimeout(() => {
+                e.target.textContent = 'Añadir al Carrito';
+            }, 1200);
         }
-        guardarCarrito(carrito);
-        actualizarContador();
-        
-        // Mostrar mensaje de confirmación
-        e.target.textContent = '¡Agregado!';
-        setTimeout(() => {
-          e.target.textContent = 'Añadir al Carrito';
-        }, 1200);
-      }
     });
 }
-// --- Fin carrito funcional ---
-
-// Inicializar la funcionalidad según la página cuando se carga el DOM
-document.addEventListener("DOMContentLoaded", async function() {
-    // Verificar que datosProductos esté disponible antes de continuar
-    if (window.datosProductos) {
-        const { actualizarContador } = window.datosProductos;
-        actualizarContador();
-        
-        // Inicializar funcionalidades según la página usando async/await
-        await mostrarProductosDestacados(); // Para página de inicio
-        await inicializarProductos();       // Para página de catálogo
-        await inicializarProducto();        // Para página de producto individual
-        configurarCarritoDestacados(); // Para carrito en productos destacados
-        
-    } else {
-        console.error('datosProductos no está disponible en app.js');
-    }
-    
-    // Funcionalidad del formulario de contacto
-    manejarFormularioContacto();
-});

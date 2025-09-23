@@ -1,6 +1,6 @@
 const productos = [
   {
-    id: "p1",
+    id: 1,
     nombre: "Mesa Comedor Pampa",
     precio: 85000,
     descripcion: "Una mesa robusta de madera maciza, ideal para reuniones familiares.",
@@ -8,7 +8,7 @@ const productos = [
     categoria: "Mesas"
   },
   {
-    id: "p2",
+    id: 2,
     nombre: "Mesa de Centro Araucaria",
     precio: 42000,
     descripcion: "Elegante mesa de centro con diseño minimalista.",
@@ -16,7 +16,7 @@ const productos = [
     categoria: "Mesas"
   },
   {
-    id: "p3",
+    id: 3,
     nombre: "Sofá Patagonia",
     precio: 120000,
     descripcion: "Sofá amplio y cómodo, tapizado en tela de alta calidad.",
@@ -24,7 +24,7 @@ const productos = [
     categoria: "Sofás"
   },
   {
-    id: "p4",
+    id: 4,
     nombre: "Silla de Trabajo Belgrano",
     precio: 35000,
     descripcion: "Silla ergonómica para largas jornadas de trabajo.",
@@ -32,7 +32,7 @@ const productos = [
     categoria: "Sillas"
   },
   {
-    id: "p5",
+    id: 5,
     nombre: "Aparador Uspallata",
     precio: 55000,
     descripcion: "Mueble con gran capacidad de guardado, estilo rústico-moderno.",
@@ -40,7 +40,7 @@ const productos = [
     categoria: "Almacenamiento"
   },
   {
-    id: "p6",
+    id: 6,
     nombre: "Biblioteca Recoleta",
     precio: 49000,
     descripcion: "Biblioteca clásica de madera clara, ideal para salas de lectura.",
@@ -48,7 +48,7 @@ const productos = [
     categoria: "Almacenamiento"
   },
   {
-    id: "p7",
+    id: 7,
     nombre: "Butaca Mendoza",
     precio: 65000,
     descripcion: "Butaca elegante con estilo minimalista, perfecta para salas de reuniones.",
@@ -56,7 +56,7 @@ const productos = [
     categoria: "Sillas"
   },
   {
-    id: "p8",
+    id: 8,
     nombre: "Escritorio Costa",
     precio: 78000,
     descripcion: "Escritorio moderno con diseño minimalista, perfecto para oficinas.",
@@ -64,7 +64,7 @@ const productos = [
     categoria: "Escritorios"
   },
   {
-    id: "p9",
+    id: 9,
     nombre: "Mesa de Noche Aconcagua",
     precio: 100000,
     descripcion: "Mesa de noche elegante con diseño funcional, ideal para dormitorios.",
@@ -72,7 +72,7 @@ const productos = [
     categoria: "Mesas"
   },
   {
-    id: "p10",
+    id: 10,
     nombre: "Sillas Córdoba",
     precio: 42000,
     descripcion: "Sillas de diseño clásico, perfectas para comedores familiares.",
@@ -80,7 +80,7 @@ const productos = [
     categoria: "Sillas"
   },
   {
-    id: "p11",
+    id: 11,
     nombre: "Sillón Copacabana",
     precio: 42000,
     descripcion: "Sillón de diseño contemporáneo con excelente comodidad.",
@@ -90,15 +90,15 @@ const productos = [
 ];
 
 // Funciones para el manejo del carrito
-function obtenerCarrito() {
+export function obtenerCarrito() {
   return JSON.parse(localStorage.getItem('carrito')) || {};
 }
 
-function guardarCarrito(carrito) {
+export function guardarCarrito(carrito) {
   localStorage.setItem('carrito', JSON.stringify(carrito));
 }
 
-function actualizarContador() {
+export function actualizarContador() {
   const carrito = obtenerCarrito();
   const total = Object.values(carrito).reduce((acc, prod) => acc + prod.cantidad, 0);
   const contador = document.getElementById('cart-count');
@@ -106,7 +106,7 @@ function actualizarContador() {
 }
 
 // Simular carga asíncrona de productos
-async function cargarProductos() {
+export async function cargarProductos() {
   console.log('🔄 Iniciando carga de productos...');
   
   // Simular tiempo de carga de red (0.5 segundos)
@@ -130,7 +130,7 @@ async function cargarProductos() {
 }
 
 // Simular carga asíncrona de un producto específico
-async function cargarProductoPorId(id) {
+export async function cargarProductoPorId(id) {
   console.log(`🔄 Cargando producto ${id}...`);
   
   // Simular tiempo de carga específico (0.5 segundos)
@@ -138,7 +138,7 @@ async function cargarProductoPorId(id) {
   
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const producto = productos.find(p => p.id === id);
+      const producto = productos.find(p => p.id === parseInt(id, 10));
       if (producto) {
         console.log(`✅ Producto ${id} cargado exitosamente`);
         resolve(producto);
@@ -151,7 +151,7 @@ async function cargarProductoPorId(id) {
 }
 
 // Función para mostrar estado de carga
-function mostrarCargando(contenedor, mensaje = 'Cargando productos...') {
+export function mostrarCargando(contenedor, mensaje = 'Cargando productos...') {
   if (!contenedor) return;
   
   contenedor.innerHTML = `
@@ -177,7 +177,7 @@ function mostrarCargando(contenedor, mensaje = 'Cargando productos...') {
   
 
 // Función para mostrar error de carga
-function mostrarError(contenedor, mensaje = 'Error al cargar los productos') {
+export function mostrarError(contenedor, mensaje = 'Error al cargar los productos') {
   if (!contenedor) return;
   
   contenedor.innerHTML = `
@@ -214,19 +214,8 @@ function mostrarError(contenedor, mensaje = 'Error al cargar los productos') {
   `;
 }
 
-// Exportar las funciones y datos para que estén disponibles globalmente
-window.datosProductos = {
-  obtenerCarrito,
-  guardarCarrito,
-  actualizarContador,
-  cargarProductos,
-  cargarProductoPorId,
-  mostrarCargando,
-  mostrarError
-};
-
 // Funcionalidad de auto-hide header para mobile
-function inicializarAutoHideHeader() {
+export function inicializarAutoHideHeader() {
   let lastScroll = 0;
   let ticking = false;
   const header = document.querySelector('header');
@@ -282,9 +271,3 @@ function inicializarAutoHideHeader() {
     }
   }, { passive: true });
 }
-
-// Inicializar contador del carrito y auto-hide header cuando se carga la página
-document.addEventListener('DOMContentLoaded', function() {
-  actualizarContador();
-  inicializarAutoHideHeader();
-});
