@@ -1,26 +1,23 @@
+// routes/productos.js
 const express = require('express');
 const router = express.Router();
+const productos = require('../data/productos');
 
-// Lista de productos de ejemplo
-const productos = [
-  { id: 1, nombre: "Mesa Comedor Pampa", precio: 85000 },
-  { id: 2, nombre: "Silla de Trabajo Belgrano", precio: 35000 },
-  { id: 3, nombre: "Sofá Patagonia", precio: 120000 }
-];
-
-// Obtener todos los productos
+// GET /api/productos → lista completa
 router.get('/', (req, res) => {
   res.json(productos);
 });
 
-// Obtener un producto por ID
+// GET /api/productos/:id → buscar por id
 router.get('/:id', (req, res) => {
-  const producto = productos.find(p => p.id == req.params.id);
+  const id = parseInt(req.params.id, 10);
+  const producto = productos.find(p => p.id === id);
+
   if (!producto) {
-    return res.status(404).json({ error: "Producto no encontrado" });
+    return res.status(404).json({ error: 'Producto no encontrado' });
   }
+
   res.json(producto);
 });
 
 module.exports = router;
-// rutas de productos para la API RESTful.
