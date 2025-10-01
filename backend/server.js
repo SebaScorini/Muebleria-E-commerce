@@ -1,7 +1,7 @@
 //servidor básico con Express para la API de productos.
 const express = require('express');
 const cors = require('cors');
-const productosRouter = require('./routes/productos');
+const productosRouter = require('./rutas/productos');
 const logger = require('./middleware/logger');
 
 const app = express();
